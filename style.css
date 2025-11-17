@@ -58,6 +58,10 @@ form {
     padding: 1rem 2rem;
 }
 
+.todos li.dragging {
+    opacity: 0.6;
+}
+
 .todos li.completed {
     border-radius: 10px;
     color: #b6b6b6;
@@ -77,3 +81,7 @@ small {
     font-weight: bold;
     font-size: 0.8rem;
 }
+
+.dark-mode {
+    cursor: pointer;
+};
