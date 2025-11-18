@@ -4,8 +4,13 @@ const input = document.getElementById('input');
 const todos = document.getElementById('todos');
 const reset = document.getElementById('reset');
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+const darkModeBtn = document.getElementById('dark-mode');
+>>>>>>> da4ea60 (added dark mode)
 const LOCAL_STORAGE_KEY = 'todos';
+const DARK_MODE_KEY = 'darkMode';
 
 todos.addEventListener('dragover', (e) => {
     e.preventDefault();
@@ -18,6 +23,7 @@ todos.addEventListener('dragover', (e) => {
         todos.insertBefore(dragging, afterElement);
     }
 });
+
 
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
@@ -190,4 +196,26 @@ function loadTodos() {
 }
 
 loadTodos();
+<<<<<<< HEAD
 >>>>>>> 0c114b4 (created a drag and drop feature based on todo priority)
+=======
+
+// Dark mode functionality
+function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem(DARK_MODE_KEY, isDark);
+    darkModeBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+}
+
+function loadDarkMode() {
+    const savedDarkMode = localStorage.getItem(DARK_MODE_KEY);
+    if (savedDarkMode === 'true') {
+        document.body.classList.add('dark');
+        darkModeBtn.textContent = 'Light Mode';
+    }
+}
+
+darkModeBtn.addEventListener('click', toggleDarkMode);
+loadDarkMode();
+>>>>>>> da4ea60 (added dark mode)
