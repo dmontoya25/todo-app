@@ -1,9 +1,10 @@
-// todo: drag and drop todo items feature to arrange by priority
+// TODO: Maybe update the Font-family to something more readable
+
 const form = document.getElementById('form');
 const input = document.getElementById('input');
 const todos = document.getElementById('todos');
 const reset = document.getElementById('reset');
-const darkModeBtn = document.getElementById('dark-mode');
+const darkModeBtn = document.getElementById('dark-mode')
 const LOCAL_STORAGE_KEY = 'todos';
 const DARK_MODE_KEY = 'darkMode';
 
@@ -18,7 +19,6 @@ todos.addEventListener('dragover', (e) => {
         todos.insertBefore(dragging, afterElement);
     }
 });
-
 
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
@@ -38,7 +38,7 @@ form.addEventListener('submit', (e) => {
 
     const todoText = input.value.trim();
 
-    if (todoText.length > 1) {
+    if (todoText.length >= 1) {
         createTodo(todoText, false);
         input.value = '';
         saveTodos();
@@ -76,6 +76,7 @@ function createTodo(text, completed = false) {
 
     todoEl.addEventListener('click', () => {
         todoEl.classList.toggle('completed');
+        // todos.appendChild(todoEl);
         saveTodos();
     });
 
@@ -116,7 +117,6 @@ function loadTodos() {
 
 loadTodos();
 
-// Dark mode functionality
 function toggleDarkMode() {
     document.body.classList.toggle('dark');
     const isDark = document.body.classList.contains('dark');
@@ -128,9 +128,9 @@ function loadDarkMode() {
     const savedDarkMode = localStorage.getItem(DARK_MODE_KEY);
     if (savedDarkMode === 'true') {
         document.body.classList.add('dark');
-        darkModeBtn.textContent = 'Light Mode';
+        darkModeBtn.textContent = 'Light Mode'
     }
 }
 
 darkModeBtn.addEventListener('click', toggleDarkMode);
-loadDarkMode();
+loadDarkMode()
