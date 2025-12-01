@@ -77,17 +77,23 @@ function createTodo(text, completed = false) {
         saveTodos();
     });
 
-    todoEl.addEventListener('click', () => {
-        todoEl.classList.toggle('completed');
-        // todos.appendChild(todoEl);
-        saveTodos();
-        checkListCompletion();
-    });
+    let clickTimerId = null;
 
-    todoEl.addEventListener('dblclick', (event) => {
-        event.preventDefault();
-        todoEl.remove();
-        saveTodos();
+    todoEl.addEventListener('click', () => {
+        if (clickTimerId !== null) {
+            clearTimeout(clickTimerId);
+            clickTimerId = null;
+            todoEl.remove();
+            saveTodos();
+            return;
+        }
+
+        clickTimerId = setTimeout(() => {
+            clickTimerId = null;
+            todoEl.classList.toggle('completed');
+            saveTodos();
+            checkListCompletion();
+        }, 240);
     });
 
     todos.appendChild(todoEl);
