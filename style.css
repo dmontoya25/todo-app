@@ -178,3 +178,98 @@ body.dark .dark-mode:hover {
         transform: translateY(-10px); /* Move upwards (adjust value for height of bounce) */
     }
 }
+
+/* Completion Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem 3rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    animation: slideIn 0.3s ease-out;
+}
+
+.modal-content h2 {
+    color: rgb(9, 95, 144);
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+}
+
+.modal-content p {
+    color: #333;
+    font-size: 1.2rem;
+    margin: 0 0 1.5rem 0;
+}
+
+.close-modal-btn {
+    cursor: pointer;
+    background-color: rgb(35, 172, 69);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.close-modal-btn:hover {
+    background-color: rgb(16, 142, 54);
+    transform: scale(1.05);
+}
+
+/* Dark mode modal styles */
+body.dark .modal-content {
+    background-color: #2d2d2d;
+}
+
+body.dark .modal-content h2 {
+    color: #4a9eff;
+}
+
+body.dark .modal-content p {
+    color: #e0e0e0;
+}
+
+body.dark .close-modal-btn {
+    background-color: #46883a;
+}
+
+body.dark .close-modal-btn:hover {
+    background-color: #32602a;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

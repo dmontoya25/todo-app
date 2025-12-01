@@ -4,9 +4,12 @@ const form = document.getElementById('form');
 const input = document.getElementById('input');
 const todos = document.getElementById('todos');
 const reset = document.getElementById('reset');
-const darkModeBtn = document.getElementById('dark-mode')
+const darkModeBtn = document.getElementById('dark-mode');
+const completionModal = document.getElementById('completion-modal');
+const closeModalBtn = document.getElementById('close-modal');
 const LOCAL_STORAGE_KEY = 'todos';
 const DARK_MODE_KEY = 'darkMode';
+
 
 todos.addEventListener('dragover', (e) => {
     e.preventDefault();
@@ -78,6 +81,7 @@ function createTodo(text, completed = false) {
         todoEl.classList.toggle('completed');
         // todos.appendChild(todoEl);
         saveTodos();
+        checkListCompletion();
     });
 
     todoEl.addEventListener('dblclick', (event) => {
@@ -96,6 +100,8 @@ function saveTodos() {
     }));
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoItems));
 }
+
+
 
 function loadTodos() {
     const savedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -117,6 +123,31 @@ function loadTodos() {
 
 loadTodos();
 
+function checkListCompletion() {
+    const todoItems = document.querySelectorAll('.todos li');
+    if (todoItems.length === 0) return; // No todos, nothing to check
+    
+    const allCompleted = Array.from(todoItems).every(todo => 
+        todo.classList.contains('completed')
+    );
+    
+    if (allCompleted) {
+        showCompletionModal();
+    }
+}
+
+function showCompletionModal() {
+    if (completionModal) {
+        completionModal.style.display = 'flex'
+    }
+}
+
+function closeCompletionModal() {
+    if (completionModal) {
+        completionModal.style.display = 'none'
+    }
+}
+
 function toggleDarkMode() {
     document.body.classList.toggle('dark');
     const isDark = document.body.classList.contains('dark');
@@ -133,4 +164,18 @@ function loadDarkMode() {
 }
 
 darkModeBtn.addEventListener('click', toggleDarkMode);
-loadDarkMode()
+loadDarkMode();
+
+// Modal close functionality
+if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', closeCompletionModal);
+}
+
+// Close modal when clicking outside of it
+if (completionModal) {
+    completionModal.addEventListener('click', (e) => {
+        if (e.target === completionModal) {
+            closeCompletionModal();
+        }
+    });
+}
