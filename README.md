@@ -4,14 +4,14 @@ A clean, interactive to-do list application built with JavaScript, HTML, and CSS
 
 ## Features
 
-- ✅ **Add Tasks** - Quickly add new to-do items
-- ✅ **Mark Complete** - Single click to toggle completion status
-- ✅ **Delete Tasks** - Double click to delete individual tasks
-- ✅ **Drag & Drop** - Reorder tasks by dragging them to your preferred position
-- ✅ **Local Storage** - All tasks are automatically saved and persist between sessions
-- ✅ **Dark Mode** - Toggle between light and dark themes with preference saved
+- **Add Tasks** - Quickly add new to-do items
+- **Mark Complete** - Single click to toggle completion status
+- **Delete Tasks** - Double click to delete individual tasks
+- **Drag & Drop** - Reorder tasks by dragging them to your preferred position
+- **Local Storage** - All tasks are automatically saved and persist between sessions
+- **Dark Mode** - Toggle between light and dark themes with preference saved
 
-- ✅ **Delete All** - Clear your entire list with one click
+- **Delete All** - Clear your entire list with one click
 
 ## How to Use
 
@@ -37,14 +37,6 @@ A clean, interactive to-do list application built with JavaScript, HTML, and CSS
 ### Clearing All Tasks
 - Click the "Delete List" button to remove all tasks at once
 
-## Technologies Used
-
-- **HTML5** - Structure and semantic markup
-- **CSS3** - Styling with animations and responsive design
-- **Vanilla JavaScript** - No frameworks or dependencies
-- **Local Storage API** - Data persistence
-- **Drag and Drop API** - Task reordering functionality
-
 ## Installation
 
 1. Clone the repository:
@@ -60,14 +52,6 @@ A clean, interactive to-do list application built with JavaScript, HTML, and CSS
 3. Open `index.html` in your web browser
 
 That's it! No build process or dependencies required.
-
-## Browser Compatibility
-
-Works in all modern browsers that support:
-- ES6 JavaScript features
-- Local Storage API
-- Drag and Drop API
-- CSS Flexbox
 
 ## License
 
