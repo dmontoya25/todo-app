@@ -57,6 +57,7 @@ reset.addEventListener('click', () => {
         todos.removeChild(todos.firstChild);
     }
     saveTodos();
+    closeCompletionModal();
 });
 
 function createTodo(text, completed = false) {
@@ -85,6 +86,7 @@ function createTodo(text, completed = false) {
             clickTimerId = null;
             todoEl.remove();
             saveTodos();
+            checkListCompletion();
             return;
         }
 
@@ -131,7 +133,10 @@ loadTodos();
 
 function checkListCompletion() {
     const todoItems = document.querySelectorAll('.todos li');
-    if (todoItems.length === 0) return; // No todos, nothing to check
+    if (todoItems.length === 0) {
+        closeCompletionModal();
+        return; // No todos, nothing to check
+    }
     
     const allCompleted = Array.from(todoItems).every(todo => 
         todo.classList.contains('completed')
@@ -139,6 +144,8 @@ function checkListCompletion() {
     
     if (allCompleted) {
         showCompletionModal();
+    } else {
+        closeCompletionModal();
     }
 }
 
