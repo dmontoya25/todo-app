@@ -212,6 +212,12 @@ body.dark .dark-mode:hover {
     animation: bounce 0.6s ease-in-out infinite;
 }
 
+/* Dark mode version of applause image */
+body.dark .applause-image {
+    /* Turn the image into a white-on-transparent style for dark backgrounds */
+    filter: brightness(0) invert(1);
+}
+
 .modal-content h2 {
     color: rgb(9, 95, 144);
     margin: 0 0 1rem 0;
