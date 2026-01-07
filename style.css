@@ -286,4 +286,63 @@ body.dark .close-modal-btn:hover {
         transform: translateY(0);
         opacity: 1;
     }
-};
+}
+
+/* Delete Modal Styles */
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.confirm-delete-btn {
+    cursor: pointer;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.confirm-delete-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.cancel-delete-btn {
+    cursor: pointer;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-delete-btn:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
+/* Dark mode delete modal styles */
+body.dark .confirm-delete-btn {
+    background-color: #dc3545;
+}
+
+body.dark .confirm-delete-btn:hover {
+    background-color: #c82333;
+}
+
+body.dark .cancel-delete-btn {
+    background-color: #5a6268;
+}
+
+body.dark .cancel-delete-btn:hover {
+    background-color: #484e53;
+}

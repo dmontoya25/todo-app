@@ -7,6 +7,9 @@ const reset = document.getElementById('reset');
 const darkModeBtn = document.getElementById('dark-mode');
 const completionModal = document.getElementById('completion-modal');
 const closeModalBtn = document.getElementById('close-modal');
+const deleteModal = document.getElementById('delete-modal');
+const confirmDeleteBtn = document.getElementById('confirm-delete');
+const cancelDeleteBtn = document.getElementById('cancel-delete');
 const LOCAL_STORAGE_KEY = 'todos';
 const DARK_MODE_KEY = 'darkMode';
 
@@ -53,12 +56,46 @@ form.addEventListener('submit', (e) => {
 });
 
 reset.addEventListener('click', () => {
+    showDeleteModal();
+});
+
+function showDeleteModal() {
+    if (deleteModal) {
+        deleteModal.style.display = 'flex';
+    }
+}
+
+function closeDeleteModal() {
+    if (deleteModal) {
+        deleteModal.style.display = 'none';
+    }
+}
+
+function deleteAllTodos() {
     while (todos.firstChild) {
         todos.removeChild(todos.firstChild);
     }
     saveTodos();
     closeCompletionModal();
-});
+    closeDeleteModal();
+}
+
+if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener('click', deleteAllTodos);
+}
+
+if (cancelDeleteBtn) {
+    cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+}
+
+// Close delete modal when clicking outside of it
+if (deleteModal) {
+    deleteModal.addEventListener('click', (e) => {
+        if (e.target === deleteModal) {
+            closeDeleteModal();
+        }
+    });
+}
 
 function createTodo(text, completed = false) {
     const todoEl = document.createElement('li');
