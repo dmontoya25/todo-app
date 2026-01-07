@@ -56,6 +56,11 @@ form.addEventListener('submit', (e) => {
 });
 
 reset.addEventListener('click', () => {
+    const todoItems = todos.querySelectorAll('li');
+    if (todoItems.length === 0) {
+        alert('No list to delete');
+        return;
+    }
     showDeleteModal();
 });
 
@@ -228,4 +233,8 @@ if (completionModal) {
             closeCompletionModal();
         }
     });
+}
+
+if (!todos) {
+    alert('No todo list found!')
 }
