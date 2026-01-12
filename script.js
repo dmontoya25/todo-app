@@ -14,6 +14,7 @@ const deleteTodoModal = document.getElementById('delete-todo-modal');
 const confirmDeleteTodoBtn = document.getElementById('confirm-delete-todo');
 const cancelDeleteTodoBtn = document.getElementById('cancel-delete-todo');
 const deleteTodoText = document.getElementById('delete-todo-text');
+const dateDisplay = document.getElementById('date-display');
 const LOCAL_STORAGE_KEY = 'todos';
 const DARK_MODE_KEY = 'darkMode';
 
@@ -289,3 +290,20 @@ if (deleteTodoModal) {
 if (!todos) {
     alert('No todo list found!')
 }
+
+// Display today's date
+function displayDate() {
+    if (!dateDisplay) return;
+    
+    const today = new Date();
+    const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+    const formattedDate = today.toLocaleDateString('en-US', options);
+    dateDisplay.textContent = formattedDate;
+}
+
+displayDate();
