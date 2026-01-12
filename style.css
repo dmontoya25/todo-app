@@ -218,6 +218,12 @@ body.dark .dark-mode:hover {
     animation: slideIn 0.3s ease-out;
 }
 
+/* Red border for delete modals only */
+#delete-modal .modal-content,
+#delete-todo-modal .modal-content {
+    border: 2px solid red;
+}
+
 .applause-image {
     width: 150px;
     height: auto;

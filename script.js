@@ -1,35 +1,48 @@
-// TODO: Maybe update the Font-family to something more readable
 
-const form = document.getElementById('form');
-const input = document.getElementById('input');
-const todos = document.getElementById('todos');
-const reset = document.getElementById('reset');
-const darkModeBtn = document.getElementById('dark-mode');
-const completionModal = document.getElementById('completion-modal');
-const closeModalBtn = document.getElementById('close-modal');
-const deleteModal = document.getElementById('delete-modal');
-const confirmDeleteBtn = document.getElementById('confirm-delete');
-const cancelDeleteBtn = document.getElementById('cancel-delete');
-const deleteTodoModal = document.getElementById('delete-todo-modal');
-const confirmDeleteTodoBtn = document.getElementById('confirm-delete-todo');
-const cancelDeleteTodoBtn = document.getElementById('cancel-delete-todo');
-const deleteTodoText = document.getElementById('delete-todo-text');
-const dateDisplay = document.getElementById('date-display');
+// DOM Elements - grouped by functionality
+const elements = {
+    // Form elements
+    form: document.getElementById('form'),
+    input: document.getElementById('input'),
+    todos: document.getElementById('todos'),
+    reset: document.getElementById('reset'),
+    
+    // Modals
+    completionModal: document.getElementById('completion-modal'),
+    deleteModal: document.getElementById('delete-modal'),
+    deleteTodoModal: document.getElementById('delete-todo-modal'),
+    
+    // Modal buttons
+    closeModalBtn: document.getElementById('close-modal'),
+    confirmDeleteBtn: document.getElementById('confirm-delete'),
+    cancelDeleteBtn: document.getElementById('cancel-delete'),
+    confirmDeleteTodoBtn: document.getElementById('confirm-delete-todo'),
+    cancelDeleteTodoBtn: document.getElementById('cancel-delete-todo'),
+    
+    // Modal text
+    deleteTodoText: document.getElementById('delete-todo-text'),
+    
+    // UI elements
+    darkModeBtn: document.getElementById('dark-mode'),
+    dateDisplay: document.getElementById('date-display')
+};
+
+// Constants
 const LOCAL_STORAGE_KEY = 'todos';
 const DARK_MODE_KEY = 'darkMode';
 
 let todoToDelete = null;
 
 
-todos.addEventListener('dragover', (e) => {
+elements.todos.addEventListener('dragover', (e) => {
     e.preventDefault();
-    const afterElement = getDragAfterElement(todos, e.clientY);
+    const afterElement = getDragAfterElement(elements.todos, e.clientY);
     const dragging = document.querySelector('.dragging');
     if (!dragging) return;
     if (afterElement == null) {
-        todos.appendChild(dragging);
+        elements.todos.appendChild(dragging);
     } else {
-        todos.insertBefore(dragging, afterElement);
+        elements.todos.insertBefore(dragging, afterElement);
     }
 });
 
@@ -46,14 +59,14 @@ function getDragAfterElement(container, y) {
     }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
-form.addEventListener('submit', (e) => {
+elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const todoText = input.value.trim();
+    const todoText = elements.input.value.trim();
 
     if (todoText.length >= 1) {
         createTodo(todoText, false);
-        input.value = '';
+        elements.input.value = '';
         saveTodos();
     }
 
@@ -62,8 +75,8 @@ form.addEventListener('submit', (e) => {
     }
 });
 
-reset.addEventListener('click', () => {
-    const todoItems = todos.querySelectorAll('li');
+elements.reset.addEventListener('click', () => {
+    const todoItems = elements.todos.querySelectorAll('li');
     if (todoItems.length === 0) {
         alert('No list to delete');
         return;
@@ -72,38 +85,38 @@ reset.addEventListener('click', () => {
 });
 
 function showDeleteModal() {
-    if (deleteModal) {
-        deleteModal.style.display = 'flex';
+    if (elements.deleteModal) {
+        elements.deleteModal.style.display = 'flex';
     }
 }
 
 function closeDeleteModal() {
-    if (deleteModal) {
-        deleteModal.style.display = 'none';
+    if (elements.deleteModal) {
+        elements.deleteModal.style.display = 'none';
     }
 }
 
 function deleteAllTodos() {
-    while (todos.firstChild) {
-        todos.removeChild(todos.firstChild);
+    while (elements.todos.firstChild) {
+        elements.todos.removeChild(elements.todos.firstChild);
     }
     saveTodos();
     closeCompletionModal();
     closeDeleteModal();
 }
 
-if (confirmDeleteBtn) {
-    confirmDeleteBtn.addEventListener('click', deleteAllTodos);
+if (elements.confirmDeleteBtn) {
+    elements.confirmDeleteBtn.addEventListener('click', deleteAllTodos);
 }
 
-if (cancelDeleteBtn) {
-    cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+if (elements.cancelDeleteBtn) {
+    elements.cancelDeleteBtn.addEventListener('click', closeDeleteModal);
 }
 
 // Close delete modal when clicking outside of it
-if (deleteModal) {
-    deleteModal.addEventListener('click', (e) => {
-        if (e.target === deleteModal) {
+if (elements.deleteModal) {
+    elements.deleteModal.addEventListener('click', (e) => {
+        if (e.target === elements.deleteModal) {
             closeDeleteModal();
         }
     });
@@ -146,11 +159,11 @@ function createTodo(text, completed = false) {
         }, 240);
     });
 
-    todos.appendChild(todoEl);
+    elements.todos.appendChild(todoEl);
 }
 
 function saveTodos() {
-    const todoItems = [...todos.querySelectorAll('li')].map((item) => ({
+    const todoItems = [...elements.todos.querySelectorAll('li')].map((item) => ({
         text: item.textContent,
         completed: item.classList.contains('completed')
     }));
@@ -198,14 +211,14 @@ function checkListCompletion() {
 }
 
 function showCompletionModal() {
-    if (completionModal) {
-        completionModal.style.display = 'flex'
+    if (elements.completionModal) {
+        elements.completionModal.style.display = 'flex'
     }
 }
 
 function closeCompletionModal() {
-    if (completionModal) {
-        completionModal.style.display = 'none'
+    if (elements.completionModal) {
+        elements.completionModal.style.display = 'none'
     }
 }
 
@@ -213,29 +226,29 @@ function toggleDarkMode() {
     document.body.classList.toggle('dark');
     const isDark = document.body.classList.contains('dark');
     localStorage.setItem(DARK_MODE_KEY, isDark);
-    darkModeBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    elements.darkModeBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
 }
 
 function loadDarkMode() {
     const savedDarkMode = localStorage.getItem(DARK_MODE_KEY);
     if (savedDarkMode === 'true') {
         document.body.classList.add('dark');
-        darkModeBtn.textContent = 'Light Mode'
+        elements.darkModeBtn.textContent = 'Light Mode'
     }
 }
 
-darkModeBtn.addEventListener('click', toggleDarkMode);
+elements.darkModeBtn.addEventListener('click', toggleDarkMode);
 loadDarkMode();
 
 // Modal close functionality
-if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', closeCompletionModal);
+if (elements.closeModalBtn) {
+    elements.closeModalBtn.addEventListener('click', closeCompletionModal);
 }
 
 // Close modal when clicking outside of it
-if (completionModal) {
-    completionModal.addEventListener('click', (e) => {
-        if (e.target === completionModal) {
+if (elements.completionModal) {
+    elements.completionModal.addEventListener('click', (e) => {
+        if (e.target === elements.completionModal) {
             closeCompletionModal();
         }
     });
@@ -245,18 +258,18 @@ if (completionModal) {
 function showDeleteTodoModal(todoElement) {
     todoToDelete = todoElement;
     const todoText = todoElement.textContent;
-    if (deleteTodoText) {
-        deleteTodoText.textContent = `Are you sure you want to delete "${todoText}"? This action cannot be undone.`;
+    if (elements.deleteTodoText) {
+        elements.deleteTodoText.textContent = `Are you sure you want to delete "${todoText}"? This action cannot be undone.`;
     }
-    if (deleteTodoModal) {
-        deleteTodoModal.style.display = 'flex';
+    if (elements.deleteTodoModal) {
+        elements.deleteTodoModal.style.display = 'flex';
     }
 }
 
 function closeDeleteTodoModal() {
     todoToDelete = null;
-    if (deleteTodoModal) {
-        deleteTodoModal.style.display = 'none';
+    if (elements.deleteTodoModal) {
+        elements.deleteTodoModal.style.display = 'none';
     }
 }
 
@@ -270,30 +283,30 @@ function confirmDeleteTodo() {
 }
 
 // Event listeners for single todo delete modal
-if (confirmDeleteTodoBtn) {
-    confirmDeleteTodoBtn.addEventListener('click', confirmDeleteTodo);
+if (elements.confirmDeleteTodoBtn) {
+    elements.confirmDeleteTodoBtn.addEventListener('click', confirmDeleteTodo);
 }
 
-if (cancelDeleteTodoBtn) {
-    cancelDeleteTodoBtn.addEventListener('click', closeDeleteTodoModal);
+if (elements.cancelDeleteTodoBtn) {
+    elements.cancelDeleteTodoBtn.addEventListener('click', closeDeleteTodoModal);
 }
 
 // Close single todo delete modal when clicking outside of it
-if (deleteTodoModal) {
-    deleteTodoModal.addEventListener('click', (e) => {
-        if (e.target === deleteTodoModal) {
+if (elements.deleteTodoModal) {
+    elements.deleteTodoModal.addEventListener('click', (e) => {
+        if (e.target === elements.deleteTodoModal) {
             closeDeleteTodoModal();
         }
     });
 }
 
-if (!todos) {
+if (!elements.todos) {
     alert('No todo list found!')
 }
 
 // Display today's date
 function displayDate() {
-    if (!dateDisplay) return;
+    if (!elements.dateDisplay) return;
     
     const today = new Date();
     const options = { 
@@ -303,7 +316,7 @@ function displayDate() {
         day: 'numeric' 
     };
     const formattedDate = today.toLocaleDateString('en-US', options);
-    dateDisplay.textContent = formattedDate;
+    elements.dateDisplay.textContent = formattedDate;
 }
 
 displayDate();
