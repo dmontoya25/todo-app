@@ -10,8 +10,14 @@ const closeModalBtn = document.getElementById('close-modal');
 const deleteModal = document.getElementById('delete-modal');
 const confirmDeleteBtn = document.getElementById('confirm-delete');
 const cancelDeleteBtn = document.getElementById('cancel-delete');
+const deleteTodoModal = document.getElementById('delete-todo-modal');
+const confirmDeleteTodoBtn = document.getElementById('confirm-delete-todo');
+const cancelDeleteTodoBtn = document.getElementById('cancel-delete-todo');
+const deleteTodoText = document.getElementById('delete-todo-text');
 const LOCAL_STORAGE_KEY = 'todos';
 const DARK_MODE_KEY = 'darkMode';
+
+let todoToDelete = null;
 
 
 todos.addEventListener('dragover', (e) => {
@@ -126,9 +132,8 @@ function createTodo(text, completed = false) {
         if (clickTimerId !== null) {
             clearTimeout(clickTimerId);
             clickTimerId = null;
-            todoEl.remove();
-            saveTodos();
-            checkListCompletion();
+            // Show delete confirmation modal
+            showDeleteTodoModal(todoEl);
             return;
         }
 
@@ -231,6 +236,52 @@ if (completionModal) {
     completionModal.addEventListener('click', (e) => {
         if (e.target === completionModal) {
             closeCompletionModal();
+        }
+    });
+}
+
+// Single todo delete modal functions
+function showDeleteTodoModal(todoElement) {
+    todoToDelete = todoElement;
+    const todoText = todoElement.textContent;
+    if (deleteTodoText) {
+        deleteTodoText.textContent = `Are you sure you want to delete "${todoText}"? This action cannot be undone.`;
+    }
+    if (deleteTodoModal) {
+        deleteTodoModal.style.display = 'flex';
+    }
+}
+
+function closeDeleteTodoModal() {
+    todoToDelete = null;
+    if (deleteTodoModal) {
+        deleteTodoModal.style.display = 'none';
+    }
+}
+
+function confirmDeleteTodo() {
+    if (todoToDelete) {
+        todoToDelete.remove();
+        saveTodos();
+        checkListCompletion();
+        closeDeleteTodoModal();
+    }
+}
+
+// Event listeners for single todo delete modal
+if (confirmDeleteTodoBtn) {
+    confirmDeleteTodoBtn.addEventListener('click', confirmDeleteTodo);
+}
+
+if (cancelDeleteTodoBtn) {
+    cancelDeleteTodoBtn.addEventListener('click', closeDeleteTodoModal);
+}
+
+// Close single todo delete modal when clicking outside of it
+if (deleteTodoModal) {
+    deleteTodoModal.addEventListener('click', (e) => {
+        if (e.target === deleteTodoModal) {
+            closeDeleteTodoModal();
         }
     });
 }
